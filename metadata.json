@@ -1,0 +1,6 @@
+{
+  "name": "Dr. Fadahunsi's Wellness Hub",
+  "description": "A premium health and wellness hub for Dr. Fadahunsi's practice, providing appointment bookings, services, conditions treated, and patient care details.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

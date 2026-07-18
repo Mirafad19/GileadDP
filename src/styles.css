@@ -1,0 +1,240 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Gilead Digital Therapy Clinic — Design System
+ *
+ * Palette: deep forest green + warm cream + soft stone + brass accent.
+ * Typography: Instrument Serif (display, italic-friendly) + Inter (body).
+ * Feel: editorial, calm, clinical-but-warm. Generous whitespace, subtle grain.
+ */
+
+:root {
+  --radius: 0px;
+
+  /* Core surfaces */
+  --background: oklch(0.975 0.012 90);     /* warm cream paper */
+  --foreground: oklch(0.22 0.028 155);     /* deep forest ink */
+
+  --card: oklch(0.985 0.008 90);
+  --card-foreground: oklch(0.22 0.028 155);
+  --popover: oklch(0.985 0.008 90);
+  --popover-foreground: oklch(0.22 0.028 155);
+
+  /* Brand */
+  --primary: oklch(0.32 0.055 155);        /* forest green */
+  --primary-foreground: oklch(0.975 0.012 90);
+  --primary-glow: oklch(0.48 0.09 152);    /* moss */
+  --primary-deep: oklch(0.22 0.045 158);   /* nearly-black green */
+
+  --secondary: oklch(0.93 0.02 100);       /* soft stone */
+  --secondary-foreground: oklch(0.28 0.03 155);
+
+  --muted: oklch(0.945 0.015 95);
+  --muted-foreground: oklch(0.48 0.02 150);
+
+  --accent: oklch(0.74 0.10 78);           /* warm brass */
+  --accent-foreground: oklch(0.22 0.028 155);
+
+  --destructive: oklch(0.55 0.20 27);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.88 0.015 100);
+  --input: oklch(0.90 0.015 100);
+  --ring: oklch(0.48 0.09 152);
+
+  --chart-1: oklch(0.32 0.055 155);
+  --chart-2: oklch(0.48 0.09 152);
+  --chart-3: oklch(0.74 0.10 78);
+  --chart-4: oklch(0.60 0.04 150);
+  --chart-5: oklch(0.35 0.03 150);
+
+  --sidebar: oklch(0.97 0.012 90);
+  --sidebar-foreground: oklch(0.22 0.028 155);
+  --sidebar-primary: oklch(0.32 0.055 155);
+  --sidebar-primary-foreground: oklch(0.975 0.012 90);
+  --sidebar-accent: oklch(0.93 0.02 100);
+  --sidebar-accent-foreground: oklch(0.28 0.03 155);
+  --sidebar-border: oklch(0.88 0.015 100);
+  --sidebar-ring: oklch(0.48 0.09 152);
+
+  /* Gradients + shadows */
+  --gradient-forest: linear-gradient(160deg, oklch(0.28 0.05 155) 0%, oklch(0.20 0.045 158) 100%);
+  --gradient-cream: linear-gradient(180deg, oklch(0.98 0.012 90) 0%, oklch(0.955 0.015 92) 100%);
+  --shadow-soft: 0 1px 2px oklch(0.22 0.028 155 / 0.06), 0 12px 40px -12px oklch(0.22 0.028 155 / 0.18);
+  --shadow-hover: 0 2px 4px oklch(0.22 0.028 155 / 0.08), 0 24px 60px -18px oklch(0.22 0.028 155 / 0.28);
+
+  /* Fonts */
+  --font-display: "Instrument Serif", "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.dark {
+  --background: oklch(0.18 0.025 158);
+  --foreground: oklch(0.96 0.012 90);
+  --card: oklch(0.22 0.028 158);
+  --card-foreground: oklch(0.96 0.012 90);
+  --popover: oklch(0.22 0.028 158);
+  --popover-foreground: oklch(0.96 0.012 90);
+  --primary: oklch(0.75 0.08 150);
+  --primary-foreground: oklch(0.18 0.025 158);
+  --secondary: oklch(0.28 0.03 155);
+  --secondary-foreground: oklch(0.96 0.012 90);
+  --muted: oklch(0.26 0.028 155);
+  --muted-foreground: oklch(0.72 0.02 150);
+  --accent: oklch(0.74 0.10 78);
+  --accent-foreground: oklch(0.18 0.025 158);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.55 0.08 150);
+  --sidebar: oklch(0.22 0.028 158);
+  --sidebar-foreground: oklch(0.96 0.012 90);
+  --sidebar-primary: oklch(0.75 0.08 150);
+  --sidebar-primary-foreground: oklch(0.18 0.025 158);
+  --sidebar-accent: oklch(0.28 0.03 155);
+  --sidebar-accent-foreground: oklch(0.96 0.012 90);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.55 0.08 150);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-glow: var(--primary-glow);
+  --color-primary-deep: var(--primary-deep);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+/* Editorial display type */
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+@utility eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+@utility rule-brass {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* Subtle noise/paper texture — pure CSS */
+@utility paper-grain {
+  position: relative;
+  isolation: isolate;
+}
+@utility paper-grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(oklch(0.22 0.028 155 / 0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: 0px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  box-shadow: var(--shadow-soft);
+}
+@utility btn-primary-hover {
+  background: var(--primary-glow);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-hover);
+}
+
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  color: var(--foreground);
+  border-radius: 0px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  transition: background 200ms ease, border 200ms ease;
+}
