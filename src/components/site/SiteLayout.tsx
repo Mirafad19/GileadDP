@@ -10,13 +10,14 @@ const NAV = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-function Wordmark() {
+function Wordmark({ className = "h-14 md:h-16" }: { className?: string }) {
   return (
     <Link to="/" className="group flex items-center">
       <img
         src="https://cdn.phototourl.com/free/2026-07-18-f3b271b9-0f8e-44f2-88ba-1be0dea6b797.png"
         alt="Gilead Digital Therapy"
-        className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+        className={`${className} w-auto object-contain transition-transform duration-300 group-hover:scale-[1.02]`}
+        referrerPolicy="no-referrer"
       />
     </Link>
   );
@@ -27,7 +28,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
-        <Wordmark />
+        <Wordmark className="h-[64px] md:h-[76px]" />
         <nav className="hidden items-center gap-9 md:flex">
           {NAV.map((item) => (
             <Link
@@ -117,55 +118,55 @@ export function SiteFooter() {
   };
 
   return (
-    <footer className="mt-32 border-t border-border/70 bg-[color:var(--muted)]">
+    <footer className="border-t border-[color:var(--primary-deep)]/10 bg-[color:var(--accent)] text-[color:var(--primary-deep)]/80">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10">
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
           {/* Brand and Accreditation */}
           <div className="lg:col-span-4 space-y-6">
-            <Wordmark />
-            <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+            <Wordmark className="h-[76px] md:h-[88px]" />
+            <p className="max-w-sm text-sm leading-relaxed text-[color:var(--primary-deep)]/85 font-medium">
               Evidence-based musculoskeletal physiotherapy led by Dr. Kolawole Fadahunsi, DPT. A
               calm, considered practice for people who want to move well again.
             </p>
             {/* Elegant Custom DPT Accreditation Badge */}
-            <div className="flex items-center gap-3.5 border border-border/60 bg-background/40 p-3.5 max-w-[240px]">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-primary text-primary-foreground text-xs font-semibold">
-                DPT
+            <div className="flex items-center gap-3.5 border border-[color:var(--primary-deep)]/15 bg-[color:var(--primary-deep)]/5 p-3.5 max-w-[240px]">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-[color:var(--primary-deep)] text-[color:var(--primary-foreground)] text-[9px] font-bold tracking-wider">
+                MRTB
               </div>
               <div className="leading-tight">
-                <span className="block text-[10px] font-bold uppercase tracking-wider text-foreground">
-                  DPT Accredited
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-[color:var(--primary-deep)]">
+                  Licensed Practice
                 </span>
-                <span className="block text-[9px] text-muted-foreground uppercase tracking-widest">
-                  Practice · Est. 2026
+                <span className="block text-[9px] text-[color:var(--primary-deep)]/65 uppercase tracking-widest font-semibold">
+                  MRTBN Reg · Est. 2026
                 </span>
               </div>
             </div>
           </div>
 
           {/* Practice Column */}
-          <div className="lg:col-span-2">
-            <p className="eyebrow text-foreground/50 font-bold uppercase tracking-wider text-xs">
+          <div className="lg:col-span-2 lg:pl-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[color:var(--primary-deep)]/50">
               Practice
             </p>
-            <ul className="mt-4 space-y-3 text-sm text-foreground/80">
+            <ul className="mt-5 space-y-3.5 text-sm">
               <li>
-                <Link to="/about" className="transition-colors hover:text-primary">
+                <Link to="/about" className="transition-colors hover:text-white text-[color:var(--primary-deep)]/80 hover:underline underline-offset-4 font-medium">
                   About Dr. Kolawole
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="transition-colors hover:text-primary">
+                <Link to="/services" className="transition-colors hover:text-white text-[color:var(--primary-deep)]/80 hover:underline underline-offset-4 font-medium">
                   Services &amp; Fees
                 </Link>
               </li>
               <li>
-                <Link to="/conditions" className="transition-colors hover:text-primary">
+                <Link to="/conditions" className="transition-colors hover:text-white text-[color:var(--primary-deep)]/80 hover:underline underline-offset-4 font-medium">
                   Conditions Treated
                 </Link>
               </li>
               <li>
-                <Link to="/book" className="transition-colors hover:text-primary">
+                <Link to="/book" className="transition-colors hover:text-white text-[color:var(--primary-deep)]/80 hover:underline underline-offset-4 font-medium">
                   Book a Session
                 </Link>
               </li>
@@ -173,15 +174,15 @@ export function SiteFooter() {
           </div>
 
           {/* Contact & Legal Column */}
-          <div className="lg:col-span-3">
-            <p className="eyebrow text-foreground/50 font-bold uppercase tracking-wider text-xs">
-              Contact &amp; Legal
+          <div className="lg:col-span-3 lg:pl-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[color:var(--primary-deep)]/50">
+              Clinic &amp; Contact
             </p>
-            <ul className="mt-4 space-y-3 text-sm text-foreground/80">
+            <ul className="mt-5 space-y-3.5 text-sm">
               <li>
                 <a
                   href="mailto:hello@gileadtherapy.clinic"
-                  className="transition-colors hover:text-primary hover:underline underline-offset-4"
+                  className="transition-colors hover:text-white hover:underline underline-offset-4 text-[color:var(--primary-deep)]/80 font-medium"
                 >
                   hello@gileadtherapy.clinic
                 </a>
@@ -189,78 +190,58 @@ export function SiteFooter() {
               <li>
                 <a
                   href="tel:+2348023000262"
-                  className="transition-colors hover:text-primary hover:underline underline-offset-4"
+                  className="transition-colors hover:text-white hover:underline underline-offset-4 text-[color:var(--primary-deep)]/80 font-medium"
                 >
                   +234 802 300 0262
                 </a>
               </li>
-              <li className="text-muted-foreground/90">In-person by appointment</li>
-              <li className="pt-2">
-                <Link to="/privacy" className="transition-colors hover:text-primary">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link to="/terms" className="transition-colors hover:text-primary">
-                  Terms &amp; Conditions
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Socials Column */}
-          <div className="lg:col-span-1">
-            <p className="eyebrow text-foreground/50 font-bold uppercase tracking-wider text-xs">
-              Socials
-            </p>
-            <ul className="mt-4 space-y-3 text-sm text-foreground/80">
-              <li>
+              <li className="text-[color:var(--primary-deep)]/70 font-medium">In-person by appointment (Lagos)</li>
+              <li className="pt-4 flex gap-3.5">
                 <a
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-primary"
+                  className="flex h-8 w-8 items-center justify-center border border-[color:var(--primary-deep)]/15 bg-[color:var(--primary-deep)]/5 text-[color:var(--primary-deep)]/80 transition-all duration-300 hover:-translate-y-1 hover:border-white hover:text-white"
+                  aria-label="LinkedIn"
                 >
-                  LinkedIn
+                  <Linkedin size={14} />
                 </a>
-              </li>
-              <li>
                 <a
                   href="https://instagram.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-primary"
+                  className="flex h-8 w-8 items-center justify-center border border-[color:var(--primary-deep)]/15 bg-[color:var(--primary-deep)]/5 text-[color:var(--primary-deep)]/80 transition-all duration-300 hover:-translate-y-1 hover:border-white hover:text-white"
+                  aria-label="Instagram"
                 >
-                  Instagram
+                  <Instagram size={14} />
                 </a>
-              </li>
-              <li>
                 <a
                   href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors hover:text-primary"
+                  className="flex h-8 w-8 items-center justify-center border border-[color:var(--primary-deep)]/15 bg-[color:var(--primary-deep)]/5 text-[color:var(--primary-deep)]/80 transition-all duration-300 hover:-translate-y-1 hover:border-white hover:text-white"
+                  aria-label="Twitter"
                 >
-                  X / Twitter
+                  <Twitter size={14} />
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Newsletter Column */}
-          <div className="lg:col-span-2 space-y-6">
-            <p className="eyebrow text-foreground/50 font-bold uppercase tracking-wider text-xs">
-              Newsletter
+          <div className="lg:col-span-3 space-y-5">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[color:var(--primary-deep)]/50">
+              Clinical Updates
             </p>
             {subscribed ? (
-              <div className="bg-background/50 border border-primary/30 p-5 text-center">
-                <Check className="mx-auto h-6 w-6 text-primary" />
-                <p className="mt-2 text-xs font-medium text-foreground">
+              <div className="bg-[color:var(--primary-deep)]/5 border border-[color:var(--primary-deep)]/20 p-5 text-center">
+                <Check className="mx-auto h-5 w-5 text-[color:var(--primary-deep)]" />
+                <p className="mt-2 text-xs font-medium text-[color:var(--primary-deep)]">
                   Thank you for subscribing!
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="space-y-4">
+              <form onSubmit={handleSubscribe} className="space-y-3.5">
                 <div>
                   <input
                     type="email"
@@ -269,7 +250,7 @@ export function SiteFooter() {
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
                     required
-                    className="w-full border border-input bg-background p-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary/40"
+                    className="w-full border border-[color:var(--primary-deep)]/25 bg-white p-3.5 text-sm text-[color:var(--primary-deep)] placeholder-[color:var(--primary-deep)]/50 focus:border-[color:var(--primary-deep)] focus:outline-none focus:ring-1 focus:ring-[color:var(--primary-deep)]/30 font-medium transition-all shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]"
                   />
                 </div>
                 <div className="flex items-start gap-2">
@@ -279,11 +260,11 @@ export function SiteFooter() {
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
                     required
-                    className="mt-1 h-3.5 w-3.5 border-input rounded-none bg-background accent-primary text-primary-foreground focus:ring-primary/40"
+                    className="mt-1 h-3.5 w-3.5 border-[color:var(--primary-deep)]/30 rounded-none bg-white accent-[color:var(--primary-deep)] text-[color:var(--primary-foreground)] focus:ring-[color:var(--primary-deep)]/40"
                   />
                   <label
                     htmlFor="consent"
-                    className="text-[11px] leading-snug text-muted-foreground select-none"
+                    className="text-[10px] leading-snug text-[color:var(--primary-deep)]/75 select-none font-semibold"
                   >
                     Yes, subscribe me to your newsletter. *
                   </label>
@@ -291,52 +272,31 @@ export function SiteFooter() {
                 <button
                   type="submit"
                   disabled={submitting || !consent}
-                  className="w-full bg-foreground text-background py-3.5 px-6 text-xs font-semibold uppercase tracking-widest transition-all duration-300 hover:bg-primary hover:text-primary-foreground disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="w-full bg-[color:var(--primary-deep)] text-[color:var(--primary-foreground)] py-3 px-6 text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:bg-[color:var(--primary-deep)]/90 hover:text-white hover:scale-[1.01] active:scale-[0.99] disabled:opacity-40 disabled:cursor-not-allowed shadow-sm"
                 >
                   {submitting ? "Subscribing..." : "Subscribe"}
                 </button>
               </form>
             )}
 
-            {/* Floating Social Media Circle Buttons aligned perfectly */}
-            <div className="flex gap-3 pt-2">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center border border-border bg-background text-foreground transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
-                aria-label="Instagram"
-              >
-                <Instagram size={16} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center border border-border bg-background text-foreground transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
-                aria-label="Twitter"
-              >
-                <Twitter size={16} />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center border border-border bg-background text-foreground transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
-                aria-label="LinkedIn"
-              >
-                <Linkedin size={16} />
-              </a>
+            <div className="pt-4 flex gap-4 text-xs">
+              <Link to="/privacy" className="text-[color:var(--primary-deep)]/50 transition-colors hover:text-white hover:underline underline-offset-4 font-semibold">
+                Privacy Policy
+              </Link>
+              <span className="text-[color:var(--primary-deep)]/20">|</span>
+              <Link to="/terms" className="text-[color:var(--primary-deep)]/50 transition-colors hover:text-white hover:underline underline-offset-4 font-semibold">
+                Terms &amp; Conditions
+              </Link>
             </div>
           </div>
         </div>
 
         {/* Bottom Credits with clean horizontal rule */}
-        <div className="mt-16 flex flex-col justify-between gap-4 border-t border-border/60 pt-8 text-[11px] text-muted-foreground md:flex-row">
+        <div className="mt-16 flex flex-col justify-between gap-4 border-t border-[color:var(--primary-deep)]/15 pt-8 text-[11px] text-[color:var(--primary-deep)]/50 md:flex-row">
           <p>© {new Date().getFullYear()} Gilead Digital Therapy Clinic. All rights reserved.</p>
-          <p className="flex items-center gap-1.5">
+          <p className="flex items-center gap-1.5 font-medium">
             Designed with care in Lagos, Nigeria{" "}
-            <span className="h-1.5 w-1.5 bg-accent inline-block" /> Dr. Kolawole Fadahunsi
+            <span className="h-1.5 w-1.5 bg-[color:var(--primary-deep)] inline-block" /> Dr. Kolawole Fadahunsi
           </p>
         </div>
       </div>

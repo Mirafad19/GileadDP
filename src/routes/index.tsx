@@ -2,9 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Activity, HeartPulse, Waves, Sparkles } from "lucide-react";
 
 import { SiteLayout } from "@/components/site/SiteLayout";
-import heroClinic from "@/assets/hero-clinic.jpg";
-import handsTherapy from "@/assets/hands-therapy.jpg";
-import stillLife from "@/assets/still-life.jpg";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -71,13 +68,13 @@ function Hero() {
 
         <div className="lg:col-span-5">
           <div className="relative">
-            <div className="absolute -inset-4 -z-10 rounded-none bg-[color:var(--muted)]" />
             <img
-              src={heroClinic}
+              src="https://www.image2url.com/r2/default/images/1784659762873-72c02b15-e0b4-495a-a912-a202cd8ca307.png"
               alt="Calm physiotherapy treatment room with soft morning light"
               width={1600}
               height={1808}
-              className="h-[560px] w-full rounded-none object-cover shadow-[var(--shadow-soft)]"
+              referrerPolicy="no-referrer"
+              className="h-[560px] w-full rounded-none object-cover"
             />
             <figcaption className="mt-4 flex items-center gap-3">
               <span className="rule-brass block h-px w-10" />
@@ -127,12 +124,13 @@ function IntroLetter() {
         <div className="lg:col-span-5">
           <p className="eyebrow">A note from Dr. Kolawole</p>
           <div className="rule-brass mt-6 w-24" />
-          <div className="mt-8 aspect-[4/5] overflow-hidden rounded-none bg-[color:var(--muted)]">
+          <div className="mt-8 aspect-[4/5] overflow-hidden rounded-none">
             <img
-              src="https://cdn.phototourl.com/free/2026-07-18-cee0c7c6-4c6a-4190-a7e1-6aac275ebe30.jpg"
+              src="https://plain-weur-prod-public.komododecks.com/202607/21/83y4oRVMGNASAU987Bkc/image.png"
               alt="Dr. Kolawole Fadahunsi, DPT"
               width={800}
               height={1000}
+              referrerPolicy="no-referrer"
               className="h-full w-full object-cover"
             />
           </div>
@@ -280,12 +278,13 @@ function Approach() {
             This is how we work together.
           </p>
           <img
-            src={handsTherapy}
+            src="https://www.image2url.com/r2/default/images/1784660785123-b00976ec-15e3-4a02-8d9f-948f5d94685c.png"
             alt="Physiotherapist guiding a shoulder mobility movement"
             width={1408}
             height={1600}
             loading="lazy"
-            className="mt-12 hidden aspect-[4/5] w-full rounded-none object-cover shadow-[var(--shadow-soft)] lg:block"
+            referrerPolicy="no-referrer"
+            className="mt-12 hidden aspect-[4/5] w-full rounded-none object-cover lg:block"
           />
         </div>
 
@@ -369,11 +368,12 @@ function ClosingCTA() {
   return (
     <section className="relative overflow-hidden w-full bg-[color:var(--primary-deep)]">
       <img
-        src={stillLife}
+        src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1200&q=80"
         alt=""
         width={1200}
         height={1408}
         loading="lazy"
+        referrerPolicy="no-referrer"
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-[color:var(--primary-deep)]/78" />

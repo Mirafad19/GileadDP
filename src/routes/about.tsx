@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import handsTherapy from "@/assets/hands-therapy.jpg";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -40,12 +39,13 @@ function AboutPage() {
 
       <section className="mx-auto grid max-w-7xl gap-16 px-6 py-16 lg:grid-cols-12 lg:px-10">
         <div className="lg:col-span-5">
-          <div className="aspect-[4/5] overflow-hidden rounded-none bg-[color:var(--secondary)]">
+          <div className="aspect-[4/5] overflow-hidden rounded-none">
             <img
-              src="https://cdn.phototourl.com/free/2026-07-18-cee0c7c6-4c6a-4190-a7e1-6aac275ebe30.jpg"
+              src="https://plain-weur-prod-public.komododecks.com/202607/21/83y4oRVMGNASAU987Bkc/image.png"
               alt="Dr. Kolawole Fadahunsi, DPT"
               width={800}
               height={1000}
+              referrerPolicy="no-referrer"
               className="h-full w-full object-cover"
             />
           </div>
@@ -126,11 +126,12 @@ function AboutPage() {
           <div className="grid gap-0 lg:grid-cols-12">
             <div className="lg:col-span-6">
               <img
-                src={handsTherapy}
+                src="https://www.image2url.com/r2/default/images/1784665173276-b1b6d49e-cb86-4995-9389-a4bcd6da8910.png"
                 alt="Physiotherapist guiding a mobility movement"
                 width={1408}
                 height={1600}
                 loading="lazy"
+                referrerPolicy="no-referrer"
                 className="h-full w-full object-cover"
               />
             </div>
