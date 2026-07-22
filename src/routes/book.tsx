@@ -42,7 +42,11 @@ const options = [
   },
 ];
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+function sanitize(str: string): string {
+  return str.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 
 function BookPage() {
   const [formState, setFormState] = useState({
@@ -51,35 +55,89 @@ function BookPage() {
     error: null as string | null,
   });
 
+  // Clean up any sensitive GET query params that may exist from previous broken submissions
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search) {
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState({ submitting: true, succeeded: false, error: null });
+
     const form = e.currentTarget;
     const formData = new FormData(form);
+
+    const rawName = (formData.get("name") as string) || "";
+    const rawEmail = (formData.get("email") as string) || "";
+    const rawPhone = (formData.get("phone") as string) || "";
+    const rawSession = (formData.get("session") as string) || "";
+    const rawDate = (formData.get("date") as string) || "";
+    const rawTime = (formData.get("time") as string) || "";
+    const rawNotes = (formData.get("notes") as string) || "";
+
+    const name = sanitize(rawName);
+    const email = sanitize(rawEmail).toLowerCase();
+    const phone = sanitize(rawPhone);
+    const session = sanitize(rawSession);
+    const date = sanitize(rawDate);
+    const time = sanitize(rawTime);
+    const notes = sanitize(rawNotes);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name) {
+      setFormState({ submitting: false, succeeded: false, error: "Please enter your full name." });
+      return;
+    }
+    if (!email || !emailRegex.test(email)) {
+      setFormState({ submitting: false, succeeded: false, error: "Please enter a valid email address." });
+      return;
+    }
+    if (!phone) {
+      setFormState({ submitting: false, succeeded: false, error: "Please enter your phone number." });
+      return;
+    }
+
+    const payload = {
+      _subject: `New Booking Request from ${name} - ${session}`,
+      _replyto: email,
+      name,
+      email,
+      phone,
+      sessionType: session,
+      preferredDate: date,
+      preferredTime: time,
+      notes: notes || "None provided",
+    };
+
     try {
       const response = await fetch("https://formspree.io/f/mgogklvq", {
         method: "POST",
-        body: formData,
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json",
         },
+        body: JSON.stringify(payload),
       });
+
       if (response.ok) {
         setFormState({ submitting: false, succeeded: true, error: null });
         form.reset();
       } else {
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
         setFormState({
           submitting: false,
           succeeded: false,
-          error: data.error || "Submission failed. Please check your inputs.",
+          error: data.error || (Array.isArray(data.errors) ? data.errors.map((e: { message: string }) => e.message).join(", ") : "Submission failed. Please check your inputs."),
         });
       }
     } catch (err) {
       setFormState({
         submitting: false,
         succeeded: false,
-        error: "Network error. Please try again or email us directly.",
+        error: "Network error. Please try again or email us directly at hello@gileadtherapy.clinic.",
       });
     }
   };
@@ -122,18 +180,25 @@ function BookPage() {
               Booking Request Received
             </h2>
             <p className="mx-auto mt-4 max-w-md text-foreground/85">
-              Thank you for requesting a session. Dr. Kolawole has received your details via
-              Formspree and will review them shortly. We will contact you via email or phone within
-              one working day to finalize your slot.
+              Thank you for requesting a session. Dr. Kolawole has received your details and will review them shortly. We will contact you via email or phone within one working day to finalize your slot.
             </p>
-            <div className="mt-8">
-              <Link to="/" className="btn-primary">
+            <div className="mt-8 flex justify-center gap-4">
+              <button
+                type="button"
+                onClick={() => setFormState({ submitting: false, succeeded: false, error: null })}
+                className="btn-primary"
+              >
+                Submit another request
+              </button>
+              <Link to="/" className="btn-primary border-border bg-transparent text-foreground hover:bg-muted">
                 Return Home
               </Link>
             </div>
           </div>
         ) : (
           <form
+            action="https://formspree.io/f/mgogklvq"
+            method="POST"
             onSubmit={handleSubmit}
             className="rounded-none border border-border bg-card p-8 md:p-12"
           >
@@ -143,7 +208,7 @@ function BookPage() {
             </div>
 
             {formState.error && (
-              <div className="mt-6 border border-red-500/30 bg-red-500/5 p-4 text-sm text-red-600">
+              <div className="mt-6 border border-red-500/30 bg-red-500/5 p-4 text-sm font-medium text-red-600">
                 {formState.error}
               </div>
             )}

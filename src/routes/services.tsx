@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Check } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 
 export const Route = createFileRoute("/services")({
@@ -110,9 +110,9 @@ function ServicesPage() {
                 <p className="text-lg leading-relaxed text-foreground/80">{s.desc}</p>
                 <ul className="mt-6 space-y-2 text-foreground/75">
                   {s.includes.map((i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <span aria-hidden className="mt-2 h-1.5 w-1.5 rounded-none bg-accent" />
-                      {i}
+                    <li key={i} className="flex items-center gap-2.5">
+                      <Check className="h-3.5 w-3.5 text-primary shrink-0" />
+                      <span>{i}</span>
                     </li>
                   ))}
                 </ul>

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -18,7 +19,9 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-import { useState } from "react";
+function sanitize(str: string): string {
+  return str.trim().replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 
 function ContactPage() {
   const [formState, setFormState] = useState({
@@ -27,35 +30,84 @@ function ContactPage() {
     error: null as string | null,
   });
 
+  // Clean up any sensitive GET query params that may exist from previous broken submissions
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search) {
+      const cleanUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState({ submitting: true, succeeded: false, error: null });
+
     const form = e.currentTarget;
     const formData = new FormData(form);
+
+    const rawName = (formData.get("name") as string) || "";
+    const rawEmail = (formData.get("email") as string) || "";
+    const rawPhone = (formData.get("phone") as string) || "";
+    const rawTopic = (formData.get("topic") as string) || "";
+    const rawMessage = (formData.get("message") as string) || "";
+
+    const name = sanitize(rawName);
+    const email = sanitize(rawEmail).toLowerCase();
+    const phone = sanitize(rawPhone);
+    const topic = sanitize(rawTopic);
+    const message = sanitize(rawMessage);
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name) {
+      setFormState({ submitting: false, succeeded: false, error: "Please enter your name." });
+      return;
+    }
+    if (!email || !emailRegex.test(email)) {
+      setFormState({ submitting: false, succeeded: false, error: "Please enter a valid email address." });
+      return;
+    }
+    if (!message) {
+      setFormState({ submitting: false, succeeded: false, error: "Please enter your message." });
+      return;
+    }
+
+    const payload = {
+      _subject: `New Contact Message from ${name} - Gilead Therapy Clinic`,
+      _replyto: email,
+      name,
+      email,
+      phone: phone || "Not provided",
+      topic: topic || "General enquiry",
+      message,
+    };
+
     try {
       const response = await fetch("https://formspree.io/f/mgogklvq", {
         method: "POST",
-        body: formData,
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json",
         },
+        body: JSON.stringify(payload),
       });
+
       if (response.ok) {
         setFormState({ submitting: false, succeeded: true, error: null });
         form.reset();
       } else {
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
         setFormState({
           submitting: false,
           succeeded: false,
-          error: data.error || "Submission failed. Please check your inputs.",
+          error: data.error || (Array.isArray(data.errors) ? data.errors.map((e: { message: string }) => e.message).join(", ") : "Submission failed. Please check your inputs."),
         });
       }
     } catch (err) {
       setFormState({
         submitting: false,
         succeeded: false,
-        error: "Network error. Please try again or email us directly.",
+        error: "Network error. Please try again or email us directly at hello@gileadtherapy.clinic.",
       });
     }
   };
@@ -106,17 +158,26 @@ function ContactPage() {
                 Message Received
               </h2>
               <p className="mx-auto mt-4 max-w-md text-foreground/85">
-                Thank you for reaching out. Your message has been sent to our inbox via Formspree.
-                Dr. Kolawole reviews every message personally and will reply to you within one
-                working day.
+                Thank you for reaching out. Your message has been sent to our inbox. Dr. Kolawole reviews every message personally and will reply to you within one working day.
               </p>
+              <button
+                type="button"
+                onClick={() => setFormState({ submitting: false, succeeded: false, error: null })}
+                className="btn-primary mt-6"
+              >
+                Send another message
+              </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form
+              action="https://formspree.io/f/mgogklvq"
+              method="POST"
+              onSubmit={handleSubmit}
+            >
               <div className="rounded-none border border-border bg-card p-8 md:p-12">
                 <p className="eyebrow">Send a message</p>
                 {formState.error && (
-                  <div className="mt-6 border border-red-500/30 bg-red-500/5 p-4 text-sm text-red-600">
+                  <div className="mt-6 border border-red-500/30 bg-red-500/5 p-4 text-sm font-medium text-red-600">
                     {formState.error}
                   </div>
                 )}

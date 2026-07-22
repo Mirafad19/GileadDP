@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Activity, HeartPulse, Waves, Sparkles } from "lucide-react";
+import { ArrowUpRight, Activity, HeartPulse, Waves, Video, Check } from "lucide-react";
 
 import { SiteLayout } from "@/components/site/SiteLayout";
 
@@ -104,8 +104,8 @@ function TrustStrip() {
           <span key={item} className="flex items-center gap-10">
             {item}
             {i < items.length - 1 && (
-              <span aria-hidden className="hidden text-accent md:inline">
-                ◆
+              <span aria-hidden className="hidden text-primary/40 font-bold md:inline">
+                •
               </span>
             )}
           </span>
@@ -189,7 +189,7 @@ function ServicesPreview() {
       meta: "Programme",
     },
     {
-      icon: Sparkles,
+      icon: Video,
       title: "Telehealth Review",
       body: "Secure video consultations for exercise coaching, progress reviews, and second opinions.",
       meta: "Online",
@@ -349,10 +349,8 @@ function ConditionsPreview() {
         </div>
         <ul className="grid grid-cols-2 gap-x-8 gap-y-4 self-center text-lg text-foreground/85 lg:col-span-7">
           {conditions.map((c) => (
-            <li key={c} className="flex items-center gap-3 border-b border-border/60 pb-3">
-              <span aria-hidden className="text-accent">
-                ◆
-              </span>
+            <li key={c} className="flex items-center gap-3 border-b border-border/60 pb-3 font-medium">
+              <Check className="h-4 w-4 text-primary shrink-0" />
               {c}
             </li>
           ))}
